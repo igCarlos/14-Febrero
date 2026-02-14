@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     audioPlayer.loop = true;
     audioPlayer.volume = 0.3;
     audioPlayer.preload = 'auto'; // precarga inmediata
-
+    
     let musicStarted = false;
 
     const startMusic = () => {
