@@ -1,3 +1,84 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Crear audio y precargar
+    const audioPlayer = new Audio();
+    audioPlayer.src = './music.mp3'; 
+    audioPlayer.loop = true;
+    audioPlayer.volume = 0.3;
+    audioPlayer.preload = 'auto'; // precarga inmediata
+
+    let musicStarted = false;
+
+    const startMusic = () => {
+        if (!musicStarted) {
+            audioPlayer.play().catch(e => console.log('Error al reproducir música:', e));
+            musicStarted = true;
+        }
+    };
+
+    // Modal para que usuario active la música
+    const modal = document.createElement('div');
+    modal.id = 'musicModal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h2>Activa la música</h2>
+            <button id="startMusicBtn">Acceder / Continuar</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+        #musicModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(8px);
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        #musicModal .modal-content {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        #musicModal button {
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff4081;
+            color: white;
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.getElementById('startMusicBtn').addEventListener('click', () => {
+        startMusic();
+        modal.remove();
+    });
+
+    // Activar música también al interactuar (scroll o click)
+    window.addEventListener('scroll', startMusic, { once: true });
+    document.addEventListener('click', startMusic, { once: true });
+
+    // Pausar/reanudar al cambiar pestaña
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) audioPlayer.pause();
+        else if (audioPlayer.paused) audioPlayer.play();
+    });
+});
+
+
+
 const heartsContainer = document.createElement('div');
 heartsContainer.classList.add('hearts-background');
 heartsContainer.style.position = 'fixed';
@@ -184,3 +265,4 @@ function createHeartsExplosion() {
         }, 4000);
     }
 }
+
