@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Crear audio y precargar
     const audioPlayer = new Audio();
-    audioPlayer.src = './music.mp3'; 
+    audioPlayer.src = 'https://bcodestorague.anteroteobaldob.workers.dev/share/anteroteobaldob_gmail_com/AUDIO/those%20eyes%20.mp3';
     audioPlayer.loop = true;
     audioPlayer.volume = 0.3;
     audioPlayer.preload = 'auto'; // precarga inmediata
